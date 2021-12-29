@@ -1,17 +1,15 @@
-from typing import Text
 import pygame
 import os
 import random
 
 pygame.init()
-pygame.mixer.init()
 
 # RGB colors
 WHITE = (255, 255, 255)
 RED = (200,0,0)
-BLUE = (0, 0, 255)
 BLACK = (0,0,0)
-
+GREEN = (0, 255, 0)
+DARK_GREEN = (0, 150, 0)
 FPS = 10
 BLOCK_SIZE = 20
 
@@ -60,6 +58,9 @@ class SnakeGame:
                     self.direction = "down"
                 elif event.key == pygame.K_UP:
                     self.direction = "up"
+                elif event.key == pygame.K_ESCAPE:
+                    pygame.quit()
+                    quit()                   
 
     def move_head(self):
         head_x = self.head[0]
@@ -91,10 +92,10 @@ class SnakeGame:
 
     def ui_update(self):
         self.display.fill(BLACK)
-        for chunk in self.snake:
-            pygame.draw.rect(self.display, BLUE, pygame.Rect(chunk[0], chunk[1], BLOCK_SIZE, BLOCK_SIZE))
+        for chunk in self.snake[1:]:
+            pygame.draw.rect(self.display, GREEN, pygame.Rect(chunk[0], chunk[1], BLOCK_SIZE, BLOCK_SIZE))
+        pygame.draw.rect(self.display, DARK_GREEN, pygame.Rect(self.head[0], self.head[1], BLOCK_SIZE, BLOCK_SIZE))
         pygame.draw.rect(self.display, RED, pygame.Rect(self.food[0], self.food[1], BLOCK_SIZE, BLOCK_SIZE))
-
         txt = font.render("Score:" + str(self.score), True, WHITE)
         self.display.blit(txt, [0, 0])
         pygame.display.flip()
@@ -123,13 +124,11 @@ class SnakeGame:
 
         return self.is_game_over(), self.score
 
-
 def main():
     game_over = False
     game = SnakeGame()
     while not game_over:
         game_over, score = game.play_step()
-        print(game_over, score)
     
     print("Score:", score)
     pygame.quit()
