@@ -12,8 +12,8 @@ def main():
 
     model = M1(RF())
 
-    #Game(Display, Snake, Apple, UserMovement(), Keyboard()).run()
-    Game(Display, Snake, Apple, AIMovement(model), Keyboard()).run(True)
+    Game(Display, Snake, Apple, UserMovement(), Keyboard()).run()
+    #Game(Display, Snake, Apple, AIMovement(model), Keyboard()).run(True)
 
 if __name__ == "__main__":
     main()

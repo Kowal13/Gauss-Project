@@ -68,25 +68,7 @@ class Game:
 
 
     def is_game_over(self):
-        if self._is_collision() or self._is_out_of_boundary():
-            return True
-
-        return False
-
-    def _is_collision(self): 
-        if self.avatar.head in self.avatar.body[1:]:
-            return True
-
-        return False
-    
-    def _is_out_of_boundary(self):
-        if self.avatar.head[0] > Display.WIDTH - Display.BLOCK_SIZE:
-            return True
-        elif self.avatar.head[0] < 0:
-            return True
-        elif self.avatar.head[1] > Display.HEIGHT - Display.BLOCK_SIZE:
-            return True
-        elif self.avatar.head[1] < 0:
+        if self.avatar.is_collision() or self.avatar.is_out_of_boundary():
             return True
 
         return False

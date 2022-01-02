@@ -15,6 +15,25 @@ class Avatar:
             return True
         return False
 
+
+    def is_collision(self): 
+        if self.head in self.body[1:]:
+            return True
+
+        return False
+    
+    def is_out_of_boundary(self):
+        if self.head[0] > Display.WIDTH - Display.BLOCK_SIZE:
+            return True
+        elif self.head[0] < 0:
+            return True
+        elif self.head[1] > Display.HEIGHT - Display.BLOCK_SIZE:
+            return True
+        elif self.head[1] < 0:
+            return True
+
+        return False
+
 class Snake(Avatar, Drawable):
     def __init__(self):
         self.head = (Display.WIDTH/2, Display.HEIGHT/2)
