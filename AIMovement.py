@@ -1,8 +1,30 @@
 from Movement import Movement
+from collections import deque
+import torch
+
 
 class AIMovement(Movement):
     def __init__(self, model):
         super(AIMovement, self).__init__(model)
+        self.game_number = 0
+        self.epsilon = 0 # randomness
+        self.gamma = 0 # discount rate
+        self.memory = deque(maxlen = 100_000) # earse memory if over an amount
 
-    def get_move(self, key_list):
+
+    def get_move(self, key_list, drawable1, drawable2):
         pass
+
+    def get_state(self, snake, apple):
+        pass
+
+    def remember(self, state, action, reward, next_state, done):
+        pass
+
+    def train_long_mem(self):
+        pass
+
+    def train_short_mem(self):
+        pass
+
+
