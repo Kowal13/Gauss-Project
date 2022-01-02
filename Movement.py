@@ -6,7 +6,7 @@ class Movement:
         pass
 
     @abstractmethod
-    def get_move(self, key_list):
+    def get_move(self, key_list, avatar, food):
         pass
 
         

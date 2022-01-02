@@ -5,7 +5,7 @@ class UserMovement(Movement):
     def __init__(self):
         self.prev_direction = "right"
 
-    def get_move(self, key_list):
+    def move(self, key_list, avatar, food):
         direction = None
         # returns the last correct code from the key list
         for event in key_list:
@@ -22,4 +22,4 @@ class UserMovement(Movement):
         if direction is not None:
             self.prev_direction = direction
 
-        return self.prev_direction    
+        return avatar.move(self.prev_direction, food)

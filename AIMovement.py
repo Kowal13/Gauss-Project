@@ -12,8 +12,9 @@ class AIMovement(Movement):
         self.memory = deque(maxlen = 100_000) # earse memory if over an amount
 
 
-    def get_move(self, key_list, drawable1, drawable2):
-        pass
+    def move(self, key_list, avatar, food):
+        avatar.move("right",food)
+        return  False
 
     def get_state(self, snake, apple):
         pass
@@ -21,10 +22,10 @@ class AIMovement(Movement):
     def remember(self, state, action, reward, next_state, done):
         pass
 
-    def train_long_mem(self):
+    def train_long_mem(self, state, action, reward, next_state, done):
         pass
 
-    def train_short_mem(self):
+    def train_short_mem(self, state, action, reward, next_state, done):
         pass
 
 

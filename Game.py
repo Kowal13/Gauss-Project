@@ -1,19 +1,20 @@
 import pygame
-from Avatar import Snake
 from Display import Display
-from Food import Apple
 
 class Game:
     FPS = 10
     
-    def __init__(self, display, snake, apple, movement, keyboard):
+    def __init__(self, display, av, food, movement, keyboard):
         self.keyboard = keyboard
         self.clock = pygame.time.Clock()
         self.score = 0
         self.iteration = 0
-        self.snake = snake 
-        self.apple = apple
-        self.display = display
+        self.avatar_cl = av
+        self.avatar = self.avatar_cl()
+        self.food_cl = food
+        self.food = self.food_cl()
+        self.display_cl = display
+        self.display = self.display_cl()
         self.movement = movement
         self.plot_score = []
         self.plot_mean_score = []
@@ -22,14 +23,15 @@ class Game:
     def reset(self):
         self.score = 0
         self.iteration = 0
-        self.snake = Snake()
-        self.apple = Apple()
-        self.display = Display() 
+        self.avatar = self.avatar_cl()
+        self.food = self.food_cl()
+        self.display = self.display_cl()
 
-    def run(self):
+    def run(self, run_forever = False):
         is_game_over = False
+        
         while not is_game_over:
-            is_game_over = self.play_step()
+            is_game_over = self.play_step(run_forever)
 
         print("Score:", self.score)
         pygame.quit()            
@@ -39,20 +41,27 @@ class Game:
             if ev.type == pygame.QUIT or ev.type == pygame.KEYDOWN and ev.key == pygame.K_ESCAPE:
                 return True
 
-    def play_step(self):
+    def play_step(self, run_forever):
         key_list = self.keyboard.get_event_list()
         if self.should_quit(key_list):
             return True
 
-        was_apple_eaten = self.snake.move(self.movement.get_move(key_list), self.snake, self.apple)
+        food_eaten = self.movement.move(key_list, self.avatar, self.food)
         is_game_over = self.is_game_over()
         if is_game_over:
-            return True
-        if was_apple_eaten:
+            if not run_forever:
+                return True
+            else:
+                self.reset()
+                is_game_over = False
+
+        if food_eaten:
             self.score += 1
-            self.apple.place_food(self.snake.body)
+            self.food.place_food(self.avatar.body)
             self.eating_sound.play()
-        self.display.update([self.snake, self.apple], self.score)
+        
+
+        self.display.update([self.avatar, self.food], self.score)
         self.clock.tick(self.FPS)
 
         return is_game_over
@@ -65,19 +74,19 @@ class Game:
         return False
 
     def _is_collision(self): 
-        if self.snake.head in self.snake.body[1:]:
+        if self.avatar.head in self.avatar.body[1:]:
             return True
 
         return False
     
     def _is_out_of_boundary(self):
-        if self.snake.head[0] > Display.WIDTH - Display.BLOCK_SIZE:
+        if self.avatar.head[0] > Display.WIDTH - Display.BLOCK_SIZE:
             return True
-        elif self.snake.head[0] < 0:
+        elif self.avatar.head[0] < 0:
             return True
-        elif self.snake.head[1] > Display.HEIGHT - Display.BLOCK_SIZE:
+        elif self.avatar.head[1] > Display.HEIGHT - Display.BLOCK_SIZE:
             return True
-        elif self.snake.head[1] < 0:
+        elif self.avatar.head[1] < 0:
             return True
 
         return False
