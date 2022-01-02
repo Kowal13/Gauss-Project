@@ -29,6 +29,9 @@ class SnakeGame:
         pygame.display.set_caption("Snake")
 
         self.clock = pygame.time.Clock()
+        self.reset()
+
+    def reset(self):
         self.direction = "right"
         # x axis - index 0, y axis - index 1
         self.head = (WIDTH/2, HEIGHT/2)
@@ -136,3 +139,4 @@ def main():
 # run file if opened directly (i.e. not imported)
 if __name__ == "__main__":
     main()
+
