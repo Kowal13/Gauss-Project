@@ -1,5 +1,5 @@
 import pygame
-from Display import Display
+from game.Display import Display
 
 class Game:
     FPS = 10

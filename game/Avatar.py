@@ -1,9 +1,9 @@
 from abc import abstractmethod
-from Display import Display
+from game.Display import Display
 import random
 
 from Drawable import Drawable
-from Food import Apple
+from game.Food import Apple
 
 class Avatar:
     """

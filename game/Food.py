@@ -1,6 +1,6 @@
 from abc import abstractmethod
 import random
-from Display import Display
+from game.Display import Display
 from Drawable import Drawable
 
 # Food doesn't have definied location (?) - check if that's ok and if not find solution
