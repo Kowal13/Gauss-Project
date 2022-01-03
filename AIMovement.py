@@ -17,7 +17,9 @@ class AIMovement(Movement):
         return  False
 
     def get_state(self, snake, apple):
+        next_step_right = snake.move
         pass
+    
 
     def remember(self, state, action, reward, next_state, done):
         pass

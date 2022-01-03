@@ -10,14 +10,10 @@ from RewardFunction import RF
 
 def main():
 
-    model = M1(RF())
+    model = M1(RF(10, -10))
 
     Game(Display, Snake, Apple, UserMovement(), Keyboard()).run()
     #Game(Display, Snake, Apple, AIMovement(model), Keyboard()).run(True)
 
 if __name__ == "__main__":
     main()
-
-
-        
-        
