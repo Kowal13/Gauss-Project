@@ -42,6 +42,7 @@ class Game:
                 return True
 
     def play_step(self, run_forever):
+        # get key inputs from keyboard as a list
         key_list = self.keyboard.get_event_list()
         if self.should_quit(key_list):
             return True

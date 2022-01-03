@@ -12,6 +12,7 @@ def main():
 
     model = M1(RF(10, -10))
 
+    # starts the game
     Game(Display, Snake, Apple, UserMovement(), Keyboard()).run()
     #Game(Display, Snake, Apple, AIMovement(model), Keyboard()).run(True)
 

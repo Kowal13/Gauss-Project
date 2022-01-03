@@ -27,7 +27,6 @@ class Food:
 
         if self.location[1] < point[1]:
             up = 1
-
         return [up, right, down, left]
 
 class Apple(Food, Drawable):

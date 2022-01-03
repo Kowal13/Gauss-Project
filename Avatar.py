@@ -6,6 +6,30 @@ from Drawable import Drawable
 from Food import Apple
 
 class Avatar:
+    """
+    A class used to represent an Avatar in the game
+
+    ...
+
+    Attributes
+    ----------
+    None
+
+    Methods
+    -------
+    @abstractmethod
+    move(direction, drawable)
+        moves the avatar in the given direction, drawable decides how it's moved
+    
+    food_eaten(drawable)
+        checks if the avatar has eaten the food
+
+    is_collision()
+        checks if the snake has collided with itself
+    
+    is_out_of_boundary
+        checks if the snake has left the screen 
+    """
     
     @abstractmethod
     def move(self, direction, drawable):
@@ -15,7 +39,6 @@ class Avatar:
         if self.get_mask()[0][0] == drawable.get_mask()[0][0] and self.get_mask()[0][1] == drawable.get_mask()[0][1]:
             return True
         return False
-
 
     def is_collision(self): 
         if self.head in self.body[1:]:
@@ -36,6 +59,27 @@ class Avatar:
         return False
 
 class Snake(Avatar, Drawable):
+    """
+    Snake avatar
+
+    ...
+
+    Attributes
+    ----------
+    head : tuple
+        location of the head of the snake in (x cord, y cord) format
+
+    body : list
+        a list of tuples, where each element represents the (x cord, y cord) of the entire snake, starting with the head
+
+    Methods
+    -------
+    get_mask()
+        gets information of the snake - list of (x cord, y cord, color)
+
+    check_collision_next_step()
+        checks which direction will result in a collision next step [left, straight, right]
+    """
     def __init__(self):
         self.head = (Display.WIDTH/2, Display.HEIGHT/2)
         self.body = [self.head, (self.head[0] - Display.BLOCK_SIZE, self.head[1]), (self.head[0] - 2*Display.BLOCK_SIZE, self.head[1])]
@@ -62,7 +106,7 @@ class Snake(Avatar, Drawable):
         
         return True
 
-    def get_mask(self,):
+    def get_mask(self):
         green = self.body[1:]
         dark_green = self.head
         L = [(dark_green[0], dark_green[1], Display.DARK_GREEN)]
@@ -71,10 +115,7 @@ class Snake(Avatar, Drawable):
         
         return L
 
-    def _get_body(self):
-        return getattr(self, 'body')
-
-    def _check_collision_next_step(self, direction, drawable):
+    def check_collision_next_step(self, direction, drawable):
         # saving the VALUE of the attibute (not the attribute itself) to body_copy
         # check if there's a better solution to make body_copy immutable
         body_copy = tuple(self.body)
