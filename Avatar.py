@@ -76,6 +76,7 @@ class Snake(Avatar, Drawable):
 
     def _check_collision_next_step(self, direction, drawable):
         # saving the VALUE of the attibute (not the attribute itself) to body_copy
+        # check if there's a better solution to make body_copy immutable
         body_copy = tuple(self.body)
         danger_zone = [0, 0, 0]
 

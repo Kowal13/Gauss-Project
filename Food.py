@@ -3,6 +3,8 @@ import random
 from Display import Display
 from Drawable import Drawable
 
+# Food doesn't have definied location (?) - check if that's ok and if not find solution
+
 class Food:
     def __init__(self):
         pass
@@ -10,6 +12,23 @@ class Food:
     @abstractmethod
     def place_food(self):
         pass
+
+    def food_location_from_point(self, point):
+        up, right, down, left = 0, 0, 0, 0
+
+        if self.location[0] > point[0]:
+            right = 1
+
+        if self.location[0] < point[0]:
+            left = 1
+        
+        if self.location[1] > point[1]:
+            down = 1
+
+        if self.location[1] < point[1]:
+            up = 1
+
+        return [up, right, down, left]
 
 class Apple(Food, Drawable):
     def __init__(self):
