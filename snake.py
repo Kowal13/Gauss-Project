@@ -1,6 +1,6 @@
 from game.Avatar import Snake
 from game.Food import Apple
-from game.Game import game.Game
+from game.Game import Game
 from game.Display import Display
 from game.Keyboard import Keyboard
 from game.UserMovement import UserMovement
