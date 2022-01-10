@@ -1,5 +1,5 @@
 import pygame
-from Movement import Movement
+from game.Movement import Movement
 
 class UserMovement(Movement):
     def __init__(self):

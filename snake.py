@@ -1,12 +1,12 @@
-from Avatar import Snake
-from Food import Apple
-from Game import Game
-from Display import Display
-from Keyboard import Keyboard
-from UserMovement import UserMovement
-from AIMovement import  AIMovement
-from Model import M1
-from RewardFunction import RF
+from game.Avatar import Snake
+from game.Food import Apple
+from game.Game import Game
+from game.Display import Display
+from game.Keyboard import Keyboard
+from game.UserMovement import UserMovement
+from net.AIMovement import  AIMovement
+from net.Model import M1
+from net.RewardFunction import RF
 
 def main():
 

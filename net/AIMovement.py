@@ -1,4 +1,4 @@
-from Movement import Movement
+from game.Movement import Movement
 from collections import deque
 import torch
 

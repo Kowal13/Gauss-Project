@@ -1,13 +1,13 @@
 from abc import abstractmethod
-from Display import Display
+from game.Display import Display
 import random
 
-from Drawable import Drawable
-from Food import Apple
+from game.Drawable import Drawable
+from game.Food import Apple
 
 class Avatar:
     """
-    A class used to represent an Avatar in the game
+    A class used to reprWesent an Avatar in the game
 
     ...
 
