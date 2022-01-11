@@ -26,6 +26,7 @@ class Game:
         self.avatar = self.avatar_cl()
         self.food = self.food_cl()
         self.display = self.display_cl()
+        self.movement.prev_direction = 'right'
 
     def run(self, run_forever = False):
         is_game_over = False
