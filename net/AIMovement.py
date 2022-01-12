@@ -1,9 +1,5 @@
 from collections import deque
-import torch
-import sys
-
-sys.path.insert(0, '/home/maciej/Gauss-Project/game')
-from Movement import Movement
+from game.Movement import Movement
 
 
 class AIMovement(Movement):
@@ -30,5 +26,3 @@ class AIMovement(Movement):
 
     def train_short_mem(self, state, action, reward, next_state, done):
         pass
-
-

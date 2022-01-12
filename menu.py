@@ -1,10 +1,8 @@
-import pygame
+
 import pygame_menu
 from Game import Game
-from game.Display import Display
 from game.Avatar import Snake
 from game.Food import Apple
-from game.Display import Display
 from game.Keyboard import Keyboard
 from game.UserMovement import UserMovement
 from net.AIMovement import AIMovement

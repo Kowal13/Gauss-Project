@@ -1,13 +1,5 @@
 import pygame
 from game.Display import Display
-from game.Avatar import Snake
-from game.Food import Apple
-from game.Display import Display
-from game.Keyboard import Keyboard
-from game.UserMovement import UserMovement
-from net.AIMovement import AIMovement
-from net.Model import M1
-from net.RewardFunction import RF
 
 
 class Game:
@@ -44,7 +36,7 @@ class Game:
 
         print("Score:", self.score)
         pygame.quit()
- 
+
     def should_quit(self, key_list):
         for ev in key_list:
             if ev.type == pygame.QUIT or ev.type == pygame.KEYDOWN and ev.key == pygame.K_ESCAPE:

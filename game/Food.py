@@ -5,8 +5,12 @@ from game.Drawable import Drawable
 
 # Food doesn't have definied location (?) - check if that's ok and if not find solution
 
+
 class Food:
     def __init__(self):
+        self.x = 0
+        self.y = 0
+        self.location = (self.x, self.y)
         pass
 
     @abstractmethod

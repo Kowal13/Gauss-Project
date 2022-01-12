@@ -1,13 +1,11 @@
 from abc import abstractmethod
 from game.Display import Display
-import random
-
 from game.Drawable import Drawable
-from game.Food import Apple
+
 
 class Avatar:
     """
-    A class used to reprWesent an Avatar in the game
+    A class used to represent an Avatar in the game
 
     ...
 
@@ -58,6 +56,7 @@ class Avatar:
 
         return False
 
+
 class Snake(Avatar, Drawable):
     """
     Snake avatar
@@ -89,7 +88,7 @@ class Snake(Avatar, Drawable):
         head_y = self.head[1]
 
         if direction == "right":
-           head_x += Display.BLOCK_SIZE
+            head_x += Display.BLOCK_SIZE
         elif direction == "left":
             head_x -= Display.BLOCK_SIZE
         elif direction == "down":
@@ -101,19 +100,19 @@ class Snake(Avatar, Drawable):
         self.body.insert(0, self.head)
         
         if not self.food_eaten(drawable):
-             self.body.pop()
-             return False
-        
+            self.body.pop()
+            return False
+
         return True
 
     def get_mask(self):
         green = self.body[1:]
         dark_green = self.head
-        L = [(dark_green[0], dark_green[1], Display.DARK_GREEN)]
+        color_list = [(dark_green[0], dark_green[1], Display.DARK_GREEN)]
         for el in green:
-            L.append((el[0], el[1], Display.GREEN))
+            color_list.append((el[0], el[1], Display.GREEN))
         
-        return L
+        return color_list
 
     def check_collision_next_step(self, direction, drawable):
         # saving the VALUE of the attibute (not the attribute itself) to body_copy

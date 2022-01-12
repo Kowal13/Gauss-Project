@@ -8,6 +8,7 @@ class UserMovement(Movement):
 
     def move(self, key_list, avatar, food):
         direction = None
+
         # returns the last correct code from the key list
         for event in key_list:
             if event.type == pygame.KEYDOWN:
