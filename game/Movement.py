@@ -2,11 +2,11 @@ from abc import abstractmethod
 
 
 class Movement:
-    def __init__(self, model = None):
+    def __init__(self, model=None):
         pass
 
     @abstractmethod
-    def get_move(self, key_list, avatar, food):
+    def move(self, key_list, avatar, food):
         pass
 
         

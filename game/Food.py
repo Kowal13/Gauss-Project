@@ -29,6 +29,7 @@ class Food:
             up = 1
         return [up, right, down, left]
 
+
 class Apple(Food, Drawable):
     def __init__(self):
         self.place_food([])

@@ -1,5 +1,3 @@
-from RewardFunction import RewardFunction
-
 class Model:
     pass
 
@@ -7,4 +5,3 @@ class Model:
 class M1(Model):
     def __init__(self, RewardFunction):
         pass
-    

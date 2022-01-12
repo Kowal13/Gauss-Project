@@ -1,6 +1,5 @@
 from pygame import init
 
-
 class RewardFunction:
     pass
 
@@ -9,4 +8,6 @@ class RF(RewardFunction):
         self.reward = reward 
         self.penalty = penalty
     pass
+
+
 

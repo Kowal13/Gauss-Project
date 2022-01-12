@@ -1,6 +1,7 @@
 import pygame
 from game.Movement import Movement
 
+
 class UserMovement(Movement):
     def __init__(self):
         self.prev_direction = "right"

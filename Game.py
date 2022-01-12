@@ -1,5 +1,14 @@
 import pygame
 from game.Display import Display
+from game.Avatar import Snake
+from game.Food import Apple
+from game.Display import Display
+from game.Keyboard import Keyboard
+from game.UserMovement import UserMovement
+from net.AIMovement import AIMovement
+from net.Model import M1
+from net.RewardFunction import RF
+
 
 class Game:
     FPS = 10
@@ -13,8 +22,7 @@ class Game:
         self.avatar = self.avatar_cl()
         self.food_cl = food
         self.food = self.food_cl()
-        self.display_cl = display
-        self.display = self.display_cl()
+        self.display = display
         self.movement = movement
         self.plot_score = []
         self.plot_mean_score = []
@@ -25,7 +33,8 @@ class Game:
         self.iteration = 0
         self.avatar = self.avatar_cl()
         self.food = self.food_cl()
-        self.display = self.display_cl()
+        self.display = Display()
+        self.movement.prev_direction = "right"
 
     def run(self, run_forever = False):
         is_game_over = False
@@ -34,7 +43,7 @@ class Game:
             is_game_over = self.play_step(run_forever)
 
         print("Score:", self.score)
-        pygame.quit()            
+        pygame.quit()
  
     def should_quit(self, key_list):
         for ev in key_list:
@@ -60,16 +69,13 @@ class Game:
             self.score += 1
             self.food.place_food(self.avatar.body)
             self.eating_sound.play()
-        
 
         self.display.update([self.avatar, self.food], self.score)
         self.clock.tick(self.FPS)
 
         return is_game_over
 
-
     def is_game_over(self):
         if self.avatar.is_collision() or self.avatar.is_out_of_boundary():
             return True
-
         return False

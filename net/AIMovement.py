@@ -1,6 +1,9 @@
-from game.Movement import Movement
 from collections import deque
 import torch
+import sys
+
+sys.path.insert(0, '/home/maciej/Gauss-Project/game')
+from Movement import Movement
 
 
 class AIMovement(Movement):
@@ -10,11 +13,11 @@ class AIMovement(Movement):
         self.epsilon = 0 # randomness
         self.gamma = 0 # discount rate
         self.memory = deque(maxlen = 100_000) # earse memory if over an amount
-
+        self.model = model
 
     def move(self, key_list, avatar, food):
         avatar.move("right",food)
-        return  False
+        return False
 
     def get_state(self, snake, apple):
         pass

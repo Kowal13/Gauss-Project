@@ -5,4 +5,4 @@ class Keyboard:
         pass
 
     def get_event_list(self):
-        return pygame.event.get()   
+        return pygame.event.get()

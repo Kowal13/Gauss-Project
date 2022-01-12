@@ -1,27 +1,32 @@
-
 import pygame
-from Display import Display
-from Avatar import Snake
-from Food import Apple
+import snake
 
-import torch
+def run(screen=None):
+    print('[menu] run')
 
-# tuple1 = (1, 2, "3")
-# tuple2 = (1, 2, "4")
-# print(tuple1[0] == tuple2[0] and tuple1[1] == tuple2[1])
-# s = Snake()
-# a = Apple()
-# #s.move("right", s, a)
-# print(s.get_mask()[0])
-# print(a.get_mask()[0])
-# print(s.food_eaten(s, a))
-# print(s.get_mask()[0][0] == a.get_mask()[0][0] and s.get_mask()[0][1] == a.get_mask()[0][1])
+    if not screen:
+        pygame.init()
+        screen = pygame.display.set_mode((800,600))
 
+    mainloop(screen)
 
-s = Snake()
+def mainloop(screen):
+    print('[menu] mainloop')
 
-print(s.head)
-print(s.body)
-print(s.head in s.body[1:])
+    running = True
+    while running:
 
-print(s.get_mask())
+        print('running menu ...')
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                exit() # skip rest of code
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if event.button == 1:
+                    snake.main()  # run game
+
+        screen.fill((255,0,0))
+        pygame.display.flip()
+
+run()
