@@ -8,5 +8,3 @@ class Drawable:
     @abstractmethod
     def get_mask(self):
         pass
-
-

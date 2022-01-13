@@ -25,13 +25,8 @@ class Game:
         self.iteration = 0
         self.avatar = self.avatar_cl()
         self.food = self.food_cl()
-<<<<<<< HEAD:Game.py
         self.display = Display()
-        self.movement.prev_direction = "right"
-=======
-        self.display = self.display_cl()
         self.movement.prev_direction = 'right'
->>>>>>> 9d9188eed3d1c55f5051b3c0742f4e54909d85c0:game/Game.py
 
     def run(self, run_forever = False):
         is_game_over = False

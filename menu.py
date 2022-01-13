@@ -1,4 +1,3 @@
-
 import pygame_menu
 from Game import Game
 from game.Avatar import Snake
