@@ -6,11 +6,13 @@ from collections import namedtuple
 pygame.init()
 font = pygame.font.SysFont('arial', 25)
 
+
 class Direction(Enum):
     RIGHT = 1
     LEFT = 2
     UP = 3
     DOWN = 4
+
 
 Point = namedtuple('Point', 'x, y')
 
@@ -25,9 +27,8 @@ BLUE2 = (0, 100, 255)
 BLACK = (0, 0, 0)
 
 
-
 class SnakeGame:
-    def __init__(self, w = 640, h = 480):
+    def __init__(self, w=640, h=480):
         self.w = w
         self.h = h
 
@@ -40,7 +41,8 @@ class SnakeGame:
         self.direction = Direction.RIGHT
 
         self.head = Point(self.w/2, self.h/2)
-        self.snake = [self.head, Point(self.head.x - BLOCK_SIZE, self.head.y), Point(self.head.x - 2*BLOCK_SIZE, self.head.y)]
+        self.snake = [self.head, Point(self.head.x - BLOCK_SIZE, self.head.y),
+                      Point(self.head.x - 2*BLOCK_SIZE, self.head.y)]
 
         self.score = 0
         self.food = None
@@ -70,7 +72,7 @@ class SnakeGame:
                 elif event.key == pygame.K_DOWN:
                     self.direction = Direction.DOWN
         # move
-        self._move(self.direction) # update head
+        self._move(self.direction)  # update head
         self.snake.insert(0, self.head)
         
         # game over?
@@ -102,6 +104,7 @@ class SnakeGame:
             return True
 
         return False
+
     def _update_ui(self):
         self.display.fill(BLACK)
 
@@ -129,13 +132,14 @@ class SnakeGame:
 
         self.head = Point(x, y)                               
 
+
 if __name__ == '__main__':
     game = SnakeGame()
 
     while True:
         game_over, score = game.play_step()
 
-        if game_over == True:
+        if game_over is True:
             break
 
     print('Score', score)
