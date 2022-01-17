@@ -19,6 +19,10 @@ class Game:
         self.plot_score = []
         self.plot_mean_score = []
         self.eating_sound = pygame.mixer.Sound("Assets/eating_sound.wav")
+        try:
+            self.rf = movement.model.reward_function
+        except AttributeError:
+            self.rf = None
 
     def reset(self):
         self.score = 0
@@ -28,11 +32,11 @@ class Game:
         self.display = Display()
         self.movement.prev_direction = 'right'
 
-    def run(self, run_forever = False):
+    def run(self, run_forever=False):
         is_game_over = False
         
         while not is_game_over:
-            is_game_over = self.play_step(run_forever)
+            is_game_over, reward = self.play_step(run_forever)
 
         print("Score:", self.score)
         pygame.quit()
@@ -43,6 +47,7 @@ class Game:
                 return True
 
     def play_step(self, run_forever):
+        reward = 0
         # get key inputs from keyboard as a list
         key_list = self.keyboard.get_event_list()
         if self.should_quit(key_list):
@@ -51,13 +56,18 @@ class Game:
         food_eaten = self.movement.move(key_list, self.avatar, self.food)
         is_game_over = self.is_game_over()
         if is_game_over:
+            if self.rf is not None:
+                reward = self.rf.penalty
             if not run_forever:
-                return True
+                return True, reward
             else:
                 self.reset()
                 is_game_over = False
 
         if food_eaten:
+            if self.rf is not None:
+                reward = self.rf.reward
+
             self.score += 1
             self.food.place_food(self.avatar.body)
             self.eating_sound.play()
@@ -65,7 +75,7 @@ class Game:
         self.display.update([self.avatar, self.food], self.score)
         self.clock.tick(self.FPS)
 
-        return is_game_over
+        return is_game_over, reward
 
     def is_game_over(self):
         if self.avatar.is_collision() or self.avatar.is_out_of_boundary():

@@ -45,3 +45,4 @@ class Menu:
         if self.play_option == "AI":
             model = M1(RF(10, -10))
             Game(self.display_obj, Snake, Apple, AIMovement(model), Keyboard()).run(self.reset_game)
+
