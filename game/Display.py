@@ -1,4 +1,7 @@
 import pygame
+import matplotlib.pyplot as plt
+
+plt.ion()
 
 
 class Display:
@@ -32,3 +35,15 @@ class Display:
 
         pygame.display.flip()
 
+    import matplotlib.pyplot as plt
+
+    def score_plot(self, score, iteration):
+        plt.clf()
+        if len(score) == 1:
+            plt.scatter(iteration, score)
+        else:
+            plt.plot(iteration, score)
+        plt.ylabel("Score")
+        plt.xlabel("Iteration")
+        plt.show()
+        plt.pause(.1)

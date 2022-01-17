@@ -1,6 +1,6 @@
 import pygame
 from game.Display import Display
-from plot_score import score_plot
+
 
 class Game:
     FPS = 10
@@ -35,7 +35,7 @@ class Game:
         self.food = self.food_cl()
         self.display = Display()
         self.movement.prev_direction = 'right'
-        score_plot(self.plot_score, self.plot_iteration)
+        self.display.score_plot(self.plot_score, self.plot_iteration)
 
 
     def run(self, run_forever=False):
