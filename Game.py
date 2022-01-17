@@ -1,6 +1,6 @@
 import pygame
 from game.Display import Display
-
+from plot_score import score_plot
 
 class Game:
     FPS = 10
@@ -10,6 +10,7 @@ class Game:
         self.clock = pygame.time.Clock()
         self.score = 0
         self.iteration = 0
+        self.plot_iteration = []
         self.avatar_cl = av
         self.avatar = self.avatar_cl()
         self.food_cl = food
@@ -26,12 +27,16 @@ class Game:
             self.rf = None
 
     def reset(self):
+        self.plot_score.append(self.score)
+        self.plot_iteration.append(str(self.iteration))
         self.score = 0
-        self.iteration = 0
+        self.iteration += 1
         self.avatar = self.avatar_cl()
         self.food = self.food_cl()
         self.display = Display()
         self.movement.prev_direction = 'right'
+        score_plot(self.plot_score, self.plot_iteration)
+
 
     def run(self, run_forever=False):
         is_game_over = False
@@ -80,7 +85,6 @@ class Game:
 
         self.display.update([self.avatar, self.food], self.score)
         self.clock.tick(self.FPS)
-
         return is_game_over, reward
 
     def is_game_over(self):
