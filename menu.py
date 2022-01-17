@@ -13,6 +13,7 @@ class Menu:
     def __init__(self, display):
         self.display_obj = display
         self.reset_game = True
+        self.sounds_on = True
         self.play_option = "Human"
         self.menu = pygame_menu.Menu('Welcome', self.display_obj.WIDTH, self.display_obj.HEIGHT,
                                      theme=pygame_menu.themes.THEME_BLUE)
@@ -21,8 +22,16 @@ class Menu:
         self.menu.add.button('Play', self.start_the_game)
         self.menu.add.selector('Player :', [('Human', 1), ('AI', 2)], onchange=self._set_player)
         self.menu.add.selector('Restart Game :', [('Yes', 1), ('No', 2)], onchange=self._set_restart_game)
+        self.menu.add.selector('Sounds :', [('Yes', 1), ('No', 2)], onchange=self._set_sound)
         self.menu.add.button('Quit', pygame_menu.events.EXIT)
         self.menu.mainloop(self.display_obj.display)
+
+    def _set_sound(self, _, option):
+        if option == 1:
+            self.sounds_on = True
+
+        if option == 2:
+            self.sounds_on = False
 
     def _set_restart_game(self, _, option):
         if option == 1:
@@ -40,8 +49,8 @@ class Menu:
 
     def start_the_game(self):
         if self.play_option == "Human":
-            Game(self.display_obj, Snake, Apple, UserMovement(), Keyboard()).run(self.reset_game)
+            Game(self.display_obj, Snake, Apple, UserMovement(), Keyboard(), self.sounds_on).run(self.reset_game)
 
         if self.play_option == "AI":
             model = M1(RF(10, -10))
-            Game(self.display_obj, Snake, Apple, AIMovement(model), Keyboard()).run(self.reset_game)
+            Game(self.display_obj, Snake, Apple, AIMovement(model), Keyboard(), self.sounds_on).run(self.reset_game)

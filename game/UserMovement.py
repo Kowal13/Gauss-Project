@@ -4,7 +4,7 @@ from game.Movement import Movement
 
 class UserMovement(Movement):
     def __init__(self):
-        self.prev_direction = "right"
+        super(UserMovement, self).__init__()
 
     def move(self, key_list, avatar, food):
         direction = None
