@@ -7,12 +7,12 @@ class AIMovement(Movement):
         super(AIMovement, self).__init__(model)
         self.model = model
         self.game_number = 0
-        self.epsilon = 0 # randomness
-        self.gamma = 0 # discount rate
-        self.memory = deque(maxlen = 100_000) # earse memory if over an amount
+        self.epsilon = 0  # randomness
+        self.gamma = 0  # discount rate
+        self.memory = deque(maxlen=100_000)  # erase memory if over an amount
         self.model = model
 
-    def move(self, key_list, avatar, food):
+    def move(self, avatar, food, key_list=None):
         avatar.move("right", food)
         return False
 

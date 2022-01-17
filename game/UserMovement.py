@@ -4,11 +4,10 @@ from game.Movement import Movement
 
 class UserMovement(Movement):
     def __init__(self):
-        super(UserMovement, self).__init__()
+        super(UserMovement, self).__init__(self)
 
-    def move(self, key_list, avatar, food):
+    def move(self, avatar, food, key_list=None):
         direction = None
-
         # returns the last correct code from the key list
         for event in key_list:
             if event.type == pygame.KEYDOWN:

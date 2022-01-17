@@ -1,7 +1,7 @@
 from game.Display import Display
 from game.Avatar import Snake
 from game.Food import Apple
-
+from game.Movement import Movement
 
 class Node:
     """A node class for A* Pathfinding"""
@@ -18,7 +18,7 @@ class Node:
         return self.position == other.position
 
 
-class AStarPathFinding:
+class AStarPathFinding(Movement):
     def astar(self, maze, start, end):
         """Returns a list of tuples as a path from the given start to the given end in the given maze"""
 
@@ -104,29 +104,44 @@ class AStarPathFinding:
                 open_list.append(child)
 
     def get_maze(self, snake):
-        maze_width = [0] * int(Display.WIDTH / Display.BLOCK_SIZE)
-        maze = [maze_width] * int(Display.HEIGHT / Display.BLOCK_SIZE)
+        maze_width = int(Display.WIDTH / Display.BLOCK_SIZE)
+        maze_height = int(Display.HEIGHT / Display.BLOCK_SIZE)
+        maze = [[0] * maze_height for i in range(maze_width)]
         snake_body_location_in_maze = [(loc[0] / int(Display.BLOCK_SIZE), loc[1] / int(Display.BLOCK_SIZE)) for loc
                                        in snake.body][1:]
 
+        i = 0
         for el in snake_body_location_in_maze:
-            maze[int(el[0])][int(el[1])] = 1
-        print(snake_body_location_in_maze)
+            maze[int(el[1])][int(el[0])] = 1
 
         return maze
 
+    def get_path(self, snake, apple):
+        apple_location_tuple = (int(apple.location[0]/Display.BLOCK_SIZE), int(apple.location[1]/Display.BLOCK_SIZE))
+        snake_location_tuple = (int(snake.head[0]/Display.BLOCK_SIZE), int(snake.head[1]/Display.BLOCK_SIZE))
+        maze = self.get_maze(snake)
+
+        path = self.astar(maze, snake_location_tuple, apple_location_tuple)
+        return path
 
 
-s = Snake()
 
+snake = Snake()
+apple = Apple()
 a = AStarPathFinding()
+apple_location_tuple = (int(apple.location[0] / Display.BLOCK_SIZE), int(apple.location[1] / Display.BLOCK_SIZE))
+snake_location_tuple = (int(snake.head[0] / Display.BLOCK_SIZE), int(snake.head[1] / Display.BLOCK_SIZE))
 
+print(snake_location_tuple)
+print(apple_location_tuple)
+
+print(a.get_path(snake, apple))
 # maze = [[0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
 #         [0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
 #         [0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
 #         [0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
 #         [0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
-#         [0, 0, 0, 0, '#', 0, 0, 0, 0, 0],
+#         [0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
 #         [0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
 #         [0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
 #         [0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
@@ -137,4 +152,4 @@ a = AStarPathFinding()
 #
 # path = a.astar(maze, start, end)
 # print(path)
-print(a.get_maze(s))
+# print(type(maze))

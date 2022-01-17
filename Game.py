@@ -16,11 +16,14 @@ class Game:
         self.food = self.food_cl()
         self.display = display
         self.movement = movement
-        self.rf = movement.model.reward_function
         self.is_sound_on = is_sound_on
         self.plot_score = []
         self.plot_mean_score = []
         self.eating_sound = pygame.mixer.Sound("Assets/eating_sound.wav")
+        try:
+            self.rf = movement.model.reward_function
+        except AttributeError:
+            self.rf = None
 
     def reset(self):
         self.score = 0
@@ -30,7 +33,7 @@ class Game:
         self.display = Display()
         self.movement.prev_direction = 'right'
 
-    def run(self, run_forever = False):
+    def run(self, run_forever=False):
         is_game_over = False
         
         while not is_game_over:
@@ -51,10 +54,12 @@ class Game:
         if self.should_quit(key_list):
             return True
 
-        food_eaten = self.movement.move(key_list, self.avatar, self.food)
+        food_eaten = self.movement.move(self.avatar, self.food, key_list)
         is_game_over = self.is_game_over()
         if is_game_over:
-            reward = self.rf.penalty
+            if self.rf is not None:
+                reward = self.rf.penalty
+
             if not run_forever:
                 return True, reward
             else:
@@ -62,7 +67,12 @@ class Game:
                 is_game_over = False
 
         if food_eaten:
-            reward = self.rf.reward
+            if self.rf is not None:
+                reward = self.rf.reward
+
+            if self.rf is not None:
+                reward = self.rf.reward
+
             self.score += 1
             self.food.place_food(self.avatar.body)
             if self.is_sound_on:
