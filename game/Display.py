@@ -35,8 +35,6 @@ class Display:
 
         pygame.display.flip()
 
-    import matplotlib.pyplot as plt
-
     def score_plot(self, score, iteration, mean):
         plt.clf()
         if len(score) == 1:
