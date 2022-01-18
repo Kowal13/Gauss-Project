@@ -1,6 +1,6 @@
 import pygame
 from game.Display import Display
-from plot_score import score_plot
+
 
 class Game:
     FPS = 10
@@ -8,9 +8,6 @@ class Game:
     def __init__(self, display, av, food, movement, keyboard, is_sound_on):
         self.keyboard = keyboard
         self.clock = pygame.time.Clock()
-        self.score = 0
-        self.iteration = 0
-        self.plot_iteration = []
         self.avatar_cl = av
         self.avatar = self.avatar_cl()
         self.food_cl = food
@@ -18,9 +15,12 @@ class Game:
         self.display = display
         self.movement = movement
         self.is_sound_on = is_sound_on
+        self.eating_sound = pygame.mixer.Sound("Assets/eating_sound.wav")
+        self.score = 0
+        self.iteration = 0
+        self.plot_iteration = []
         self.plot_score = []
         self.plot_mean_score = []
-        self.eating_sound = pygame.mixer.Sound("Assets/eating_sound.wav")
         try:
             self.rf = movement.model.reward_function
         except AttributeError:
@@ -29,13 +29,14 @@ class Game:
     def reset(self):
         self.plot_score.append(self.score)
         self.plot_iteration.append(str(self.iteration))
+        self.plot_mean_score.append(sum(self.plot_score)/len(self.plot_iteration))
         self.score = 0
         self.iteration += 1
         self.avatar = self.avatar_cl()
         self.food = self.food_cl()
         self.display = Display()
         self.movement.prev_direction = 'right'
-        score_plot(self.plot_score, self.plot_iteration)
+        self.display.score_plot(self.plot_score, self.plot_iteration, self.plot_mean_score)
 
 
     def run(self, run_forever=False):
